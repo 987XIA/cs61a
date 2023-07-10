@@ -99,5 +99,151 @@ print(print(1),print(2))
 # None None
 # The fact that it returns None means that 
 # it should not be the expression in an assignment statement.
+
+# the return value is none
 ```
+
+
+
+### 1.3  Defining New Functions
+
+
+
+#### 1.3.1 Environments
+
+#### 1.3.2 Calling User-Defined Functions
+
+#### 1.3.3 Example: Calling a User-Defined Function
+
+#### 1.3.4 Local Names
+
+#### 1.3.5 Choosing Names
+
+#### 1.3.6 Functions as Abstractions
+
+#### 1.3.7 Operators
+
+
+
+### 1.4 Designing Functions
+
+
+
+#### 1.4.1  Documentation
+
+
+
+A function definition will often include documentation describing the function, called a *docstring*, which must be indented along with the function body. Docstrings are conventionally triple quoted. The first line describes the job of the function in one line. The following lines can describe arguments and clarify the behavior of the function:
+
+```python
+def pressure(v, t, n):
+        """Compute the pressure in pascals of an ideal gas.
+
+        Applies the ideal gas law: http://en.wikipedia.org/wiki/Ideal_gas_law
+
+        v -- volume of gas, in cubic meters
+        t -- absolute temperature in degrees kelvin
+        n -- particles of gas
+        """
+        k = 1.38e-23  # Boltzmann's constant
+        return n * k * t / v
+```
+
+using help(name of function) to see its docstring, type q to quit help
+
+
+
+#### 1.4.2  Default Argument Values
+
+
+
+### 1.5 Control
+
+
+
+#### 1.5.1  Statements
+
+#### 1.5.2  Compound Statements
+
+
+
+**Practical Guidance.** When indenting a suite, all lines must be indented the same amount and in the same way (use spaces, not tabs). Any variation in indentation will cause an error.
+
+
+
+#### 1.5.3  Defining Functions II: Local Assignment
+
+#### 1.5.4  Conditional Statements
+
+#### 1.5.5  Iteration
+
+#### 1.5.6  Testing
+
+
+
+**Assertions.** Programmers use `assert` statements to verify expectations, such as the output of a function being tested. An `assert` statement has an expression in a boolean context, followed by a quoted line of text (single or double quotes are both fine, but be consistent) that will be displayed if the expression evaluates to a false value.
+
+```python
+def fib_test():
+        assert fib(2) == 1, 'The 2nd Fibonacci number should be 1'
+        assert fib(3) == 1, 'The 3rd Fibonacci number should be 1'
+        assert fib(50) == 7778742049, 'Error at the 50th Fibonacci number'
+```
+
+In Python tests are typically written in the same file or a neighboring file with the suffix `_test.py`.
+
+
+
+**Doctests.** Python provides a convenient method for placing simple tests directly in the docstring of a function. The first line of a docstring should contain a one-line description of the function, followed by a blank line. A detailed description of arguments and behavior may follow. In addition, the docstring may include a sample interactive session that calls the function:
+
+```python
+def sum_naturals(n):
+    """Return the sum of the first n natural numbers.
+
+	>>> sum_naturals(10)
+	55
+	>>> sum_naturals(100)
+	5050
+	"""
+	total, k = 0, 1
+	while k <= n:
+		total, k = total + k, k + 1
+	return total
+```
+
+Then, the interaction can be verified via the doctest module. Below, the `globals` function returns a representation of the global environment, which the interpreter needs in order to evaluate expressions.
+
+```python
+>>> from doctest import testmod
+>>> testmod()
+TestResults(failed=0, attempted=2)
+```
+
+To verify the doctest interactions for only a single function, we use a `doctest` function called `run_docstring_examples`. This function is (unfortunately) a bit complicated to call. Its first argument is the function to test. The second should always be the result of the expression `globals()`, a built-in function that returns the global environment. The third argument is `True` to indicate that we would like "verbose" output: a catalog of all tests run.
+
+```python
+>>> from doctest import run_docstring_examples
+>>> run_docstring_examples(sum_naturals, globals(), True)
+Finding tests in NoName
+Trying:
+    sum_naturals(10)
+Expecting:
+    55
+ok
+Trying:
+    sum_naturals(100)
+Expecting:
+    5050
+ok
+```
+
+When the return value of a function does not match the expected result, the `run_docstring_examples` function will report this problem as a test failure.
+
+When writing Python in files, all doctests in a file can be run by starting Python with the doctest command line option:
+
+```
+python3 -m doctest <python_source_file>
+```
+
+The key to effective testing is to write (and run) tests immediately after implementing new functions. It is even good practice to write some tests before you implement, in order to have some example inputs and outputs in your mind. A test that applies a single function is called a *unit test*. Exhaustive unit testing is a hallmark of good program design.
 
