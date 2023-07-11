@@ -247,3 +247,35 @@ python3 -m doctest <python_source_file>
 
 The key to effective testing is to write (and run) tests immediately after implementing new functions. It is even good practice to write some tests before you implement, in order to have some example inputs and outputs in your mind. A test that applies a single function is called a *unit test*. Exhaustive unit testing is a hallmark of good program design.
 
+
+
+### 1.6  Higher-Order Functions
+
+
+
+#### 1.6.1  Functions as Arguments
+
+#### 1.6.2  Functions as General Methods
+
+First, naming and functions allow us to abstract away a vast amount of complexity. While each function definition has been trivial, the computational process set in motion by our evaluation procedure is quite intricate. 
+
+Second, it is only by virtue of the fact that we have an extremely general evaluation procedure for the Python language that small components can be composed into complex processes. 
+
+Understanding the procedure of interpreting programs allows us to validate and inspect the process we have created.
+
+
+
+#### 1.6.3  Defining Functions III: Nested Definitions
+
+[1.6.4 Functions as Returned Values](http://www.composingprograms.com/pages/16-higher-order-functions.html#functions-as-returned-values)
+
+[1.6.5 Example: Newton's Method](http://www.composingprograms.com/pages/16-higher-order-functions.html#example-newton-s-method)
+
+[1.6.6 Currying](http://www.composingprograms.com/pages/16-higher-order-functions.html#currying)
+
+[1.6.7 Lambda Expressions](http://www.composingprograms.com/pages/16-higher-order-functions.html#lambda-expressions)
+
+[1.6.8 Abstractions and First-Class Functions](http://www.composingprograms.com/pages/16-higher-order-functions.html#abstractions-and-first-class-functions)
+
+[1.6.9 Function Decorators](http://www.composingprograms.com/pages/16-higher-order-functions.html#function-decorators)
+
