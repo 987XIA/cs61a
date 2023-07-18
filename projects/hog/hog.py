@@ -2,6 +2,7 @@
 
 from dice import six_sided, four_sided, make_test_dice
 from ucb import main, trace, interact
+from math import gcd
 
 GOAL_SCORE = 100  # The goal of Hog is to score 100 points.
 FIRST_101_DIGITS_OF_PI = 31415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679
@@ -22,10 +23,16 @@ def roll_dice(num_rolls, dice=six_sided):
     assert type(num_rolls) == int, 'num_rolls must be an integer.'
     assert num_rolls > 0, 'Must roll at least once.'
     # BEGIN PROBLEM 1
+    k, total = 1, 0
+    is_one = False
+    while k <= num_rolls:
+        this_roll = dice()
+        if this_roll == 1:
+            is_one = True
+        k, total = k + 1, total + this_roll
+    return 1 if is_one else total
+     
     
-    
-
-
 
     
     # END PROBLEM 1
@@ -42,6 +49,9 @@ def free_bacon(score):
     # Trim pi to only (score + 1) digit(s)
     # BEGIN PROBLEM 2
     "*** YOUR CODE HERE ***"
+    num = 100 - score
+    pi = pi // pow(10, num)
+
     # END PROBLEM 2
 
     return pi % 10 + 3
@@ -62,6 +72,10 @@ def take_turn(num_rolls, opponent_score, dice=six_sided):
     assert opponent_score < 100, 'The game should be over.'
     # BEGIN PROBLEM 3
     "*** YOUR CODE HERE ***"
+    if num_rolls != 0:
+        return roll_dice(num_rolls, dice)
+    else:
+        return free_bacon(opponent_score)
     # END PROBLEM 3
 
 
@@ -84,6 +98,12 @@ def swine_align(player_score, opponent_score):
     """
     # BEGIN PROBLEM 4a
     "*** YOUR CODE HERE ***"
+    another_turn = True
+    if player_score > 0 and opponent_score > 0 and gcd(player_score, opponent_score) >= 10:
+        return another_turn
+    else:
+        return not another_turn
+        
     # END PROBLEM 4a
 
 
@@ -106,6 +126,11 @@ def pig_pass(player_score, opponent_score):
     """
     # BEGIN PROBLEM 4b
     "*** YOUR CODE HERE ***"
+    another_turn = True
+    if player_score < opponent_score and (opponent_score - player_score) < 3:
+        return another_turn
+    else:
+        return not another_turn
     # END PROBLEM 4b
 
 
@@ -144,6 +169,20 @@ def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
     """
     who = 0  # Who is about to take a turn, 0 (first) or 1 (second)
     # BEGIN PROBLEM 5
+    while score0 < goal and score1 < goal:
+        if who == 0:
+            num_rolls = strategy0(score0, score1)
+            score0 += take_turn(num_rolls, score1, dice)
+            say = say(score0, score1)
+            if not extra_turn(score0, score1):
+                who = other(who)
+        else:
+            num_rolls = strategy1(score1, score0)
+            score1 += take_turn(num_rolls, score0, dice)
+            say = say(score0, score1)
+            if not extra_turn(score1, score0):
+                who = other(who)
+
     "*** YOUR CODE HERE ***"
     # END PROBLEM 5
     # (note that the indentation for the problem 6 prompt (***YOUR CODE HERE***) might be misleading)
