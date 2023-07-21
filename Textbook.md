@@ -279,3 +279,27 @@ Understanding the procedure of interpreting programs allows us to validate and i
 
 [1.6.9 Function Decorators](http://www.composingprograms.com/pages/16-higher-order-functions.html#function-decorators)
 
+
+
+### 1.7  Recursive Functions
+
+A function is called *recursive* if the body of the function calls the function itself, either directly or indirectly.
+
+
+
+#### 1.7.1  The Anatomy of Recursive Functions
+
+base case 
+
+recursive case
+
+
+
+#### 1.7.2  Mutual Recursion
+
+When a recursive procedure is divided among two functions that call each other, the functions are said to be *mutually recursive*. 
+
+
+
+#### 1.7.3  Printing in Recursive Functions
+
